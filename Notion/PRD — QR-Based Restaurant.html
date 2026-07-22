@@ -1,0 +1,819 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>PRD — QR-Based Restaurant Ordering App</title><meta name="data-notion-page-icon" content="🍽️"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%8D%BD%EF%B8%8F%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure,
+aside,
+details {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="86d91de4-6b4e-4dda-a67a-b2fc82774936" class="page sans" data-notion-page-icon="🍽️"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="🍽️"></span></div><h1 class="page-title" dir="auto">PRD — QR-Based Restaurant Ordering App</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody><tr class="property-row property-row-status"><th><span class="icon property-icon"><img src="https://app.notion.com/icons/burst_gray.svg" style="width:14px;height:14px;display:block"/></span>Status</th><td><span class="status-value select-value-color-blue"><div class="status-dot status-dot-color-blue"></div>In progress</span></td></tr><tr class="property-row property-row-select"><th><span class="icon property-icon"><img src="https://app.notion.com/icons/arrow-circle-down_gray.svg" style="width:14px;height:14px;display:block"/></span>Type</th><td><span class="selected-value select-value-color-purple">PRD</span></td></tr></tbody></table></header><div class="page-body"><h1 id="89d6c2de-0ed7-4799-8603-a21f2e114923" class="" dir="auto">Product Vision</h1><p id="e27981f3-9acb-4c6c-8a29-6251325e1fdb" class="" dir="auto">To empower restaurants of all sizes with a seamless, contactless ordering experience — where customers scan, browse, and order in seconds, staff stay focused on service, and owners get full visibility into their operations through a single, elegant platform.</p><hr id="e29b17b6-04d9-4983-aba0-ee2e090771e2" dir="auto"/><h1 id="6621fbf1-3774-49fa-b481-76cf724790c8" class="" dir="auto">Problem Statement</h1><p id="1fca61ed-5962-4657-954f-87d99d760751" class="" dir="auto">Traditional restaurant ordering is slow, error-prone, and staff-intensive. Printed menus go out of date. Waiters misplace orders. Customers wait too long. Restaurant owners have no real-time data on what&#x27;s selling, what&#x27;s slow, or where bottlenecks occur.</p><p id="f30cc713-5ffe-4d4f-93f4-962c3507a7a5" class="" dir="auto">Existing solutions are either too expensive, too complex to set up, or too ugly to inspire confidence in a paying customer. There is a clear gap for a <strong>premium, fast, and simple</strong> QR-based ordering system tailored for the modern restaurant.</p><hr id="20b39d04-eb7d-40e2-8283-8d031da4f617" dir="auto"/><h1 id="9e227a2e-b769-464e-bf4e-98e321c5d21c" class="" dir="auto">Goals</h1><p id="85ae0475-67a6-4bb9-a8f7-1c3ca96b04cd" class="" dir="auto"><strong>Business Goals</strong></p><ul id="55e7ef02-f933-4c10-b073-5804ade3e219" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Demonstrate a working MVP to restaurant owners within the first sales cycle</li></ul><ul id="eeb4ca36-a67e-4204-902a-b04b907ef724" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Reduce onboarding time to under 30 minutes per restaurant</li></ul><ul id="1396ed62-f525-4602-ad9d-65d282fd4a9d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Target 10 paying pilot customers in the first 3 months</li></ul><p id="ee9036e3-8515-4cfd-908c-50c756048d86" class="" dir="auto"><strong>Product Goals</strong></p><ul id="e896552f-0efb-4b3d-99e5-6d15a186fbe1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cut average order time from ≥5 minutes to &lt;90 seconds</li></ul><ul id="d3254deb-a316-41fa-ae8a-e53d610f7e53" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Eliminate order transcription errors entirely</li></ul><ul id="7a3d8e79-312b-4194-ad54-5fd349e5783e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Give admins a real-time view of all active orders and table statuses</li></ul><p id="959fb9df-7338-40d9-9775-a7b039e00fa1" class="" dir="auto"><strong>User Goals</strong></p><ul id="d0a78ff1-fe20-4426-8003-d4ff6946bd47" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Customers: order food without waiting for a waiter</li></ul><ul id="aa5b5d3e-ce17-4859-80ec-df1453afb49d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Staff: receive orders instantly with no verbal communication errors</li></ul><ul id="1fec1974-b3a4-40e4-9795-79b31c46e48f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Owners: manage the full menu, tables, and staff from one dashboard</li></ul><hr id="4360b7a5-f132-4bf7-be69-bd7d98b4e627" dir="auto"/><h1 id="6f9e694c-a6e6-40e9-a3cc-24cd63f2d0c0" class="" dir="auto">User Personas</h1><h2 id="fb85f21d-f9ff-46a3-bc67-5758ae29bb47" class="" dir="auto">🧑‍🍳 Persona 1 — The Hungry Customer</h2><p id="6976a807-67fd-4d69-977c-ced4308c8b11" class="" dir="auto"><strong>Name:</strong> Noor, 27, urban professional</p><p id="3b5e95c8-f4c4-46dd-bd75-3e38954a6e65" class="" dir="auto"><strong>Context:</strong> Sits down at a restaurant, wants to order quickly and get back to her conversation</p><p id="b9c62983-e064-4280-bd40-b7a572b58160" class="" dir="auto"><strong>Goals:</strong> See the menu fast, find what she wants, order without flagging down a waiter</p><p id="5ca60307-b6f3-4409-b65b-3bd2eee0006f" class="" dir="auto"><strong>Frustrations:</strong> Waiting for menus, unclear item descriptions, no photos, slow service</p><p id="2cc5e04b-9806-460a-8429-95af5f43cd9e" class="" dir="auto"><strong>Tech comfort:</strong> High — uses food delivery apps daily</p><h2 id="09172d68-ed02-49b8-ac61-83930e155ce9" class="" dir="auto">👨‍🍳 Persona 2 — The Restaurant Staff</h2><p id="1c097deb-7907-4c31-a633-5575e6862b7d" class="" dir="auto"><strong>Name:</strong> Ahmed, 34, head waiter</p><p id="e9f7a5c2-e0f1-45ac-ae57-0d41a703abc3" class="" dir="auto"><strong>Context:</strong> Manages 6 tables during lunch rush, constantly moving</p><p id="b96cdf69-3423-428b-9df2-f25fcdbf6a88" class="" dir="auto"><strong>Goals:</strong> Know which tables have active orders, serve food to the right table, mark orders as delivered</p><p id="1304a4cd-befb-49b1-ac83-2c888d3652a5" class="" dir="auto"><strong>Frustrations:</strong> Missed orders, wrong items, customers calling out across the room</p><p id="c946a72f-e184-4948-917a-a5e1db007d27" class="" dir="auto"><strong>Tech comfort:</strong> Medium — comfortable with tablets and POS systems</p><h2 id="9cc67982-4fa2-4677-b524-9a164b64d910" class="" dir="auto">🧑‍💼 Persona 3 — The Restaurant Owner / Admin</h2><p id="03c0bae3-64e1-46da-ae6c-13e983138777" class="" dir="auto"><strong>Name:</strong> Khalid, 45, owns 2 restaurant locations</p><p id="51465840-dc23-40fa-be59-8458b4658a6c" class="" dir="auto"><strong>Context:</strong> Wants to control his menu digitally, see what&#x27;s selling, and reduce staff workload</p><p id="ba02383e-f14e-4351-846e-463cb9e12b81" class="" dir="auto"><strong>Goals:</strong> Update menu items in real time, monitor orders live, manage tables and staff accounts</p><p id="13eef232-995c-4321-8624-7824bb3231a2" class="" dir="auto"><strong>Frustrations:</strong> Expensive POS systems, tech that requires training, no visibility into operations</p><p id="d4dbf0d4-8e63-421b-b0f4-ea54d310fbd5" class="" dir="auto"><strong>Tech comfort:</strong> Medium — uses WhatsApp and basic apps</p><hr id="e6b8ca90-920e-4d84-900f-3b72dd8a3180" dir="auto"/><h1 id="ba6ab16b-5b4f-4c75-983b-1d7c80c3811d" class="" dir="auto">User Flow</h1><h2 id="53006df3-28f4-4362-869f-b6325ff85461" class="" dir="auto">End-to-End Customer Journey</h2><ol type="1" id="73c19564-a403-453b-b2bc-8b75cef4f9bb" class="numbered-list" start="1" dir="auto"><li><strong>Customer Scans QR Code</strong><ul id="2ac4c3a2-814f-44a8-99f2-afdc919d8484" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Each table has a unique QR code printed on a card or stand</li></ul><ul id="77bc5134-3b3c-4611-a14f-02ae329725e0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Customer opens phone camera and scans</li></ul><ul id="06b1905b-3e60-432b-afc4-8c85d9a68aca" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No app download required — opens directly in mobile browser</li></ul></li></ol><ol type="1" id="0411fb64-39a3-40bf-97a1-2bfbf0eb6be3" class="numbered-list" start="2" dir="auto"><li><strong>Menu Loads Instantly</strong><ul id="2c08460e-f856-45eb-8cee-37c928779847" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Restaurant branding (logo, name, cover image) appears</li></ul><ul id="953f1f33-7153-4210-a74b-0419f99c9d2d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Menu categories load in a horizontally scrollable tab bar</li></ul><ul id="6d8ff3b4-463a-4db8-ba61-1a04f5e1172b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Featured or popular items appear at the top</li></ul></li></ol><ol type="1" id="f6cdb9be-c728-4418-a584-8c7038c9a00f" class="numbered-list" start="3" dir="auto"><li><strong>Customer Browses Categories</strong><ul id="98225c43-51d7-4f0d-86ab-f27bce24438f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Taps a category (e.g. Starters, Mains, Desserts, Drinks)</li></ul><ul id="6e2b99bf-e151-46d9-a9f6-4d7cfd8ae3b2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Items display as cards: photo, name, short description, price</li></ul><ul id="3f92b95f-8c93-4901-a88d-79a4febdc4a3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Tapping an item opens a detail view with full description, allergens, and customization options</li></ul></li></ol><ol type="1" id="297fb74f-d8e8-4f22-b15a-2d7146389242" class="numbered-list" start="4" dir="auto"><li><strong>Customer Adds Items to Cart</strong><ul id="310d86eb-5790-4137-b01f-05d61e918894" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Selects quantity, optional add-ons or notes (e.g. &quot;no onions&quot;)</li></ul><ul id="60f5f1f8-8269-4573-b7a2-b0f3a4743c0e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Taps &quot;Add to Cart&quot; — cart icon updates with item count</li></ul><ul id="e84717b1-baba-4a69-87e6-27b285f34070" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Can continue browsing and adding items</li></ul></li></ol><ol type="1" id="a42fa784-14b9-42bb-a4ee-f17f5504d537" class="numbered-list" start="5" dir="auto"><li><strong>Customer Reviews Cart</strong><ul id="d14d2d10-a5a0-4b8d-aa1b-db6bf7539685" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cart screen shows all items, quantities, individual and total prices</li></ul><ul id="7e7f5a06-21c5-4abc-a440-c3c047fc3c78" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Can edit quantities or remove items</li></ul><ul id="9ed7c1b4-d0a9-42de-af2a-f33c345e3f1f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Special instructions field available for the full order</li></ul></li></ol><ol type="1" id="f75100aa-b5e1-4155-9a71-9866f8dd1c90" class="numbered-list" start="6" dir="auto"><li><strong>Customer Places Order</strong><ul id="eba95cc2-b72b-418d-82c7-1d6fb82c8384" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Taps &quot;Place Order&quot;</li></ul><ul id="13de318c-2160-4e74-923d-986d1dcafde0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No login required for MVP — table is identified by QR code</li></ul><ul id="7587397f-ec1a-44d4-b56b-6732aa6c0a87" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Order confirmation screen shows order number and estimated wait time</li></ul><ul id="a51b3ca1-5d96-486b-98f6-fc46a3a7e8d4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Real-time status tracker appears: Received → Preparing → Ready → Served</li></ul></li></ol><ol type="1" id="8649d803-76c8-4814-a25c-dbd224d2386a" class="numbered-list" start="7" dir="auto"><li><strong>Kitchen Receives Order</strong><ul id="2debf7bc-2f92-4e0e-9139-8de44e9ee2ce" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Order appears instantly on the kitchen/staff dashboard</li></ul><ul id="b1cf6a2f-54a4-4c18-a4af-e335a5f8bd1d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Displays: table number, items ordered, quantities, special notes, timestamp</li></ul><ul id="a413826a-58ba-4fa4-8b8f-d8159dc22669" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Staff can mark order as &quot;Preparing&quot; and then &quot;Ready&quot;</li></ul></li></ol><ol type="1" id="693da1bb-ac82-43f9-85b4-57a77376465c" class="numbered-list" start="8" dir="auto"><li><strong>Waiter Serves the Order</strong><ul id="218a9708-88e5-4a1c-80a1-d1c755b3858c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Staff marks order as &quot;Served&quot; after delivering to table</li></ul><ul id="d8b6bec8-5728-44d0-89f7-17ba444df265" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Customer&#x27;s tracking screen updates to &quot;Served&quot;</li></ul></li></ol><ol type="1" id="03d9867d-b63d-4082-a851-427703ad5cba" class="numbered-list" start="9" dir="auto"><li><strong>Order Completed</strong><ul id="27b68466-133a-4de6-abcd-20d4aa46d741" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Order is logged in history</li></ul><ul id="18684374-eac6-4f0c-88f4-436a385fddd8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Admin dashboard reflects completed order in analytics</li></ul><ul id="8847172e-bfe1-4812-84d5-eb946e71b559" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Table status resets to available (or stays occupied until manually cleared)</li></ul></li></ol><hr id="56d58db8-a612-4b95-9f8b-5f586ba61f03" dir="auto"/><h1 id="b499bdb1-fdeb-4660-bf02-6b7507270762" class="" dir="auto">Features</h1><h2 id="e0a940f2-1a14-462c-8f8b-dba931272eca" class="" dir="auto">Customer Features</h2><ul id="15aa3d4e-d831-4622-b97f-737b7b0ac093" class="bulleted-list" dir="auto"><li style="list-style-type:disc">QR code scan → instant menu load (no app, no login)</li></ul><ul id="b2435c90-e793-439f-abbd-0e1246cde2e5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Categorized menu with photos, descriptions, and prices</li></ul><ul id="4a1475f6-e4e0-42c5-85a9-19b4ea5029f2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Item detail page with add-ons and special instructions</li></ul><ul id="8abad2ec-aff2-480c-9007-b91926798ca3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cart management (add, remove, update quantities)</li></ul><ul id="cc1116c8-37ce-417d-a148-25b25fa94d50" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Order placement with confirmation screen</li></ul><ul id="ab9c2e6b-284f-4a92-9f2d-4e80e669965f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Real-time order status tracking</li></ul><ul id="724213c8-cc20-4afa-9db6-82556b4252cb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Multi-language support (future)</li></ul><h2 id="a4078a58-5c2b-48fb-80d1-eeb672128b82" class="" dir="auto">Staff Features</h2><ul id="2040aed2-184d-4133-a141-efba4ea145c2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Live order queue dashboard (new orders appear instantly)</li></ul><ul id="237723a3-27dc-4723-8599-f15abdc3a793" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Order detail view (table, items, notes, timestamp)</li></ul><ul id="824bc903-3d98-401d-8e56-1dc74e329947" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Status update controls: Received → Preparing → Ready → Served</li></ul><ul id="c7f34304-203d-44b9-aff1-502ef1e0bcf3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Table overview with active/free status</li></ul><ul id="ade42f9f-592d-4cdc-9c96-b2771ac5c5fc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Order history log per shift</li></ul><ul id="8634b907-687c-4a6a-9e18-613ab172e36e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mobile-optimized for tablet/phone use</li></ul><h2 id="18c4a273-940e-49de-9bbd-7a2ae8dada4b" class="" dir="auto">Admin Features</h2><ul id="0d09e325-cc78-47c9-84a6-636fedfe281e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Restaurant profile setup (name, logo, cover, currency)</li></ul><ul id="1f4af03a-ce02-4f8e-8b97-ddcedf3e8e70" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Full menu management: categories, items, photos, prices, availability toggle</li></ul><ul id="de01356f-4a4b-426b-9484-76582e47b30a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Table management: add/remove tables, generate/regenerate QR codes</li></ul><ul id="960e3868-5f8a-4124-b505-bc152b11637f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Staff account management (create, disable, assign roles)</li></ul><ul id="c08c86ce-a3ab-4e3c-92d6-92dee090c6fc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Live orders dashboard</li></ul><ul id="a3d6b248-0aa8-4a7f-ae90-416e73faa162" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Order history with filters (date, table, status)</li></ul><ul id="a38986fb-f26a-43a7-bf7e-5f401bdb4e16" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Basic revenue and order analytics</li></ul><ul id="5c5dec06-7638-4af4-9e8c-201d2a53751c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Settings: operating hours, tax rate, order notification preferences</li></ul><hr id="7aea9d15-f840-4198-84b3-1d75bc6d3afd" dir="auto"/><h1 id="083dbf5f-b057-43c1-aba5-d4a0528b880f" class="" dir="auto">MVP Features</h1><p id="27bb90aa-ba24-4924-a857-fb99b9304cf3" class="" dir="auto">Only what&#x27;s needed to demo to a restaurant owner and impress them:</p><ul id="0a1444c3-5d40-4823-92cd-00cc1722f735" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">QR code generation per table</span><div class="indented"></div></li></ul><ul id="dbadc181-0f84-4ed8-849a-2443ff2042fd" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Mobile-optimized menu (categories + items + photos)</span><div class="indented"></div></li></ul><ul id="8dc11a64-a98e-4ab2-8a68-1aa72e8216d2" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Add to cart and place order flow</span><div class="indented"></div></li></ul><ul id="98c13f06-b3f4-4654-b720-3d2c2b2d842c" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Order confirmation screen for customer</span><div class="indented"></div></li></ul><ul id="85feac62-2f82-4371-bef2-f121a6e278ed" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Real-time order status (Received → Preparing → Served)</span><div class="indented"></div></li></ul><ul id="372d7e5b-6643-4309-a52e-77a532055eb0" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Staff order dashboard (live queue, status updates)</span><div class="indented"></div></li></ul><ul id="3e6a819d-f994-4eb6-97fb-a475ee2b4bb2" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Admin: menu management (add/edit/toggle items and categories)</span><div class="indented"></div></li></ul><ul id="ad8c1dda-4959-4252-9900-eb3025abad49" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Admin: table management + QR generation</span><div class="indented"></div></li></ul><ul id="19b7a77d-a484-4401-a179-69a5201a9a0b" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Admin: live orders view</span><div class="indented"></div></li></ul><ul id="5a36f167-386b-4fc3-b7a7-14a615a17db0" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Basic auth for staff and admin (email + password)</span><div class="indented"></div></li></ul><hr id="46458c7d-e930-451b-b9ab-ce0f23e58882" dir="auto"/><h1 id="4aea268b-c1bc-4b59-9778-4c324984fb2e" class="" dir="auto">Future Features</h1><ul id="325b1c57-f411-4dca-9fbe-3775d33191b4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">💳 Online payment integration (Stripe, local payment gateways)</li></ul><ul id="eb57697f-9774-412b-98a4-a345fd7fba04" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭐ Loyalty points and rewards system</li></ul><ul id="f7f30839-6f9e-4bcc-84b4-929dca998bdf" class="bulleted-list" dir="auto"><li style="list-style-type:disc">📝 Customer reviews and item ratings</li></ul><ul id="3055fe14-bfc7-424c-b511-ed108b3b53d5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">🔔 Waiter call button (&quot;Request assistance&quot;)</li></ul><ul id="9b706d48-301d-4b8c-af0b-6760ccaed041" class="bulleted-list" dir="auto"><li style="list-style-type:disc">📺 Kitchen Display System (KDS) — dedicated kitchen screen</li></ul><ul id="5881a87e-15b2-44ba-9afd-766795c47512" class="bulleted-list" dir="auto"><li style="list-style-type:disc">📦 Inventory tracking and low-stock alerts</li></ul><ul id="e839f2e3-ee1c-4e9e-99da-fdfde87087f0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">📊 Advanced analytics (peak hours, top items, revenue trends)</li></ul><ul id="602aa4d0-daf2-4e03-8393-51cb524ab91d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">🏢 Multi-branch support</li></ul><ul id="75126be0-1b6f-42c4-9fab-8e8e6c6e4086" class="bulleted-list" dir="auto"><li style="list-style-type:disc">📱 Native mobile apps (iOS / Android)</li></ul><ul id="9fee9323-7ecb-42f3-9812-a990725dfae4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">🌐 Multi-language menu support</li></ul><ul id="3b2757af-a0f7-4c2f-9da4-d57181cb8b37" class="bulleted-list" dir="auto"><li style="list-style-type:disc">🖨️ Receipt printing integration</li></ul><ul id="921abf02-ae01-45b1-9855-7f8ef15ca456" class="bulleted-list" dir="auto"><li style="list-style-type:disc">📅 Reservation and table booking</li></ul><ul id="f6464f1a-becf-482e-a974-e11402c949e4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">🤖 AI-powered item recommendations</li></ul><hr id="23bdcb17-a981-4e4c-8d50-909ed67a457d" dir="auto"/><h1 id="1ffd0b1b-3d5d-4224-a880-b7d1b82a9624" class="" dir="auto">Database Entities</h1><h2 id="1a92194d-3d19-4f9f-ae3a-049f866a28d0" class="" dir="auto">Entity Map</h2><p id="aeba59d5-1361-45e8-9928-7b5e74fa20af" class="" dir="auto"><strong>Restaurant</strong></p><ul id="ca58f040-1379-4390-af5f-26067db0bc24" class="bulleted-list" dir="auto"><li style="list-style-type:disc">id, name, logo_url, cover_url, currency, tax_rate, is_active, created_at</li></ul><ul id="06628a3c-1c0b-4009-9b2d-cc8c82906cef" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><em>One restaurant has many Tables, Categories, Staff, Orders</em></li></ul><p id="1bc389c5-d79c-4067-ac8f-69609b730051" class="" dir="auto"><strong>Table</strong></p><ul id="5bbd5d20-cbbb-4122-8730-8c93fbd3ef8b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">id, restaurant_id, table_number, label, qr_code_url, status (free/occupied), created_at</li></ul><ul id="9c6bdf80-5d0d-4f99-b715-e02db76f325c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><em>Belongs to Restaurant. Has many Orders</em></li></ul><p id="a9a297f4-9235-44b1-93f6-cbb1e8b16d17" class="" dir="auto"><strong>Category</strong></p><ul id="3d8b0c79-90d3-4a3a-bf5a-af3c8bb41f9a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">id, restaurant_id, name, image_url, sort_order, is_active</li></ul><ul id="811e9818-deb9-4c41-b9d6-1d35f6b388b3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><em>Belongs to Restaurant. Has many Food Items</em></li></ul><p id="7ac3ce62-8c2e-472b-841f-367ed54dee08" class="" dir="auto"><strong>Food Item</strong></p><ul id="42232cc9-34a8-4be1-9f81-56450ee1060c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">id, category_id, restaurant_id, name, description, price, image_url, is_available, is_featured, sort_order</li></ul><ul id="734e9cae-04ce-4ee1-a566-3b0458a74811" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><em>Belongs to Category. Appears in many Order Items</em></li></ul><p id="5b820df1-de75-4473-aacf-5ff791f98709" class="" dir="auto"><strong>Order</strong></p><ul id="8176a2b7-3565-4ad9-ace6-5de7583dd08d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">id, restaurant_id, table_id, status (pending/preparing/ready/served/cancelled), special_instructions, total_amount, created_at, updated_at</li></ul><ul id="df47c841-d541-4f38-b4ef-3aec8257cffb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><em>Belongs to Table and Restaurant. Has many Order Items</em></li></ul><p id="49b4c485-345a-49e8-8bd5-012575cd25ec" class="" dir="auto"><strong>Order Item</strong></p><ul id="26c0fa6c-26ca-4c31-bce2-8db96b6f783a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">id, order_id, food_item_id, quantity, unit_price, notes</li></ul><ul id="30bdee5b-f622-4fe9-afc3-0b3609209454" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><em>Belongs to Order and Food Item</em></li></ul><p id="a2f1cd3e-da5e-467e-94ea-429036be0bd1" class="" dir="auto"><strong>Customer</strong> <em>(optional in MVP — table-based ordering)</em></p><ul id="ad7d60ca-ac7a-4ee9-b4dd-ea813abca267" class="bulleted-list" dir="auto"><li style="list-style-type:disc">id, name, phone, email, created_at</li></ul><ul id="9fc253b8-266e-4d2f-bd79-5d5ebaa8aa35" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><em>Future: linked to Orders for loyalty</em></li></ul><p id="60cb9a75-0873-4cec-bb02-d0fe39b87c95" class="" dir="auto"><strong>User</strong> <em>(base auth entity)</em></p><ul id="54cd8e43-a151-4897-80ae-6c16384e40e8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">id, name, email, password_hash, role (admin/staff), restaurant_id, is_active, created_at</li></ul><ul id="fcd49c0a-ca75-4a1e-8a02-36b48c3fccce" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><em>One User per Staff or Admin account</em></li></ul><p id="56f8f15b-e28b-468f-959d-29734ff2409e" class="" dir="auto"><strong>Staff</strong></p><ul id="b5070155-806c-48e4-a5e7-77a29f6b33e8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">id, user_id, restaurant_id, role (waiter/kitchen/manager)</li></ul><ul id="daf781bb-86ff-42f7-9078-0ceeef4decef" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><em>Extends User with operational context</em></li></ul><p id="631ae755-b078-4f06-b776-00f056ca85c6" class="" dir="auto"><strong>Payment</strong> <em>(future)</em></p><ul id="6e6b30aa-7588-43ff-a498-52d8c2422513" class="bulleted-list" dir="auto"><li style="list-style-type:disc">id, order_id, amount, method, status, transaction_id, paid_at</li></ul><ul id="141cded1-e807-424c-a060-a9a35d967a43" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><em>Belongs to Order</em></li></ul><hr id="67a9339f-8462-4b32-8b58-aafbd3f3a1b5" dir="auto"/><h1 id="d7d8fe6e-de93-49a6-89a0-472ec0cdb1a2" class="" dir="auto">Pages Required</h1><h2 id="b476e4cb-a6c1-41db-b9dc-3745996a3d21" class="" dir="auto">Customer-Facing (public, mobile)</h2><table id="d3348871-61f0-4776-a1d8-4be372d59795" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="b260f74e-26be-43c8-a6d1-fd71721ec122" dir="ltr"><th id="T@H[" class="simple-table-header-color simple-table-header">Page</th><th id="ANS_" class="simple-table-header-color simple-table-header">Route</th><th id="|Uz:" class="simple-table-header-color simple-table-header">Description</th></tr></thead><tbody><tr id="2eb9bdcf-ec85-4e39-867d-d130d403be4b" dir="ltr"><td id="T@H[" class="">Menu</td><td id="ANS_" class=""><code>/menu/:restaurantSlug/:tableId</code></td><td id="|Uz:" class="">Main menu with category tabs and item cards</td></tr><tr id="bdd7c25d-9a7a-43c2-99c5-fe67ec1592f8" dir="ltr"><td id="T@H[" class="">Item Detail</td><td id="ANS_" class=""><code>/menu/:restaurantSlug/item/:itemId</code></td><td id="|Uz:" class="">Full item view with add-ons</td></tr><tr id="2ebabf1d-90c9-4db5-9e6e-110ba7c1e274" dir="ltr"><td id="T@H[" class="">Cart</td><td id="ANS_" class=""><code>/cart</code></td><td id="|Uz:" class="">Review and edit cart</td></tr><tr id="5db238f3-c027-47dd-bc2e-c2862e69d29c" dir="ltr"><td id="T@H[" class="">Checkout</td><td id="ANS_" class=""><code>/checkout</code></td><td id="|Uz:" class="">Confirm order + special instructions</td></tr><tr id="34408356-256d-41ab-9a2d-92f2f461768f" dir="ltr"><td id="T@H[" class="">Order Confirmation</td><td id="ANS_" class=""><code>/order/:orderId</code></td><td id="|Uz:" class="">Success screen with order number</td></tr><tr id="bd0a3931-8421-4613-bbdc-3e78b0474541" dir="ltr"><td id="T@H[" class="">Order Tracking</td><td id="ANS_" class=""><code>/order/:orderId/track</code></td><td id="|Uz:" class="">Live status tracker</td></tr></tbody></table><h2 id="273fb46a-caa7-4825-8430-ead12394d3d4" class="" dir="auto">Staff-Facing (authenticated)</h2><table id="7ca34d6a-ebba-4516-b9ed-ad1f65038c63" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="5f9051c8-6ab4-4aab-9bfa-ab3f6b72d76e" dir="ltr"><th id="qUod" class="simple-table-header-color simple-table-header">Page</th><th id="QXVe" class="simple-table-header-color simple-table-header">Route</th><th id="Z;PG" class="simple-table-header-color simple-table-header">Description</th></tr></thead><tbody><tr id="c40ad5f1-a25d-4446-b69a-ea5dc288f47c" dir="ltr"><td id="qUod" class="">Staff Login</td><td id="QXVe" class=""><code>/staff/login</code></td><td id="Z;PG" class="">Email + password login</td></tr><tr id="81137f7d-b03e-495d-ae6b-40ae21665f77" dir="ltr"><td id="qUod" class="">Order Queue</td><td id="QXVe" class=""><code>/staff/orders</code></td><td id="Z;PG" class="">Live incoming orders dashboard</td></tr><tr id="91540a8e-b3a7-4cec-94bb-9c58136b1e73" dir="ltr"><td id="qUod" class="">Order Detail</td><td id="QXVe" class=""><code>/staff/orders/:orderId</code></td><td id="Z;PG" class="">Full order view + status controls</td></tr><tr id="4570bb21-a6c9-4082-b688-1ccdb742b265" dir="ltr"><td id="qUod" class="">Tables Overview</td><td id="QXVe" class=""><code>/staff/tables</code></td><td id="Z;PG" class="">Table map with active order indicators</td></tr></tbody></table><h2 id="f312780e-b14c-48e8-935a-ce783c223066" class="" dir="auto">Admin-Facing (authenticated)</h2><table id="92c79972-786e-4f00-862a-2e4500ede576" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="1b067f41-bfae-4b04-99f8-3ac15d04fdbc" dir="ltr"><th id="aZQC" class="simple-table-header-color simple-table-header">Page</th><th id="Y;;[" class="simple-table-header-color simple-table-header">Route</th><th id="SxDh" class="simple-table-header-color simple-table-header">Description</th></tr></thead><tbody><tr id="8d275402-c784-4d1b-963c-5f3324df4212" dir="ltr"><td id="aZQC" class="">Admin Login</td><td id="Y;;[" class=""><code>/admin/login</code></td><td id="SxDh" class="">Secure admin login</td></tr><tr id="6c686816-f75b-4e1b-a442-16ab5d6b42a1" dir="ltr"><td id="aZQC" class="">Dashboard</td><td id="Y;;[" class=""><code>/admin</code></td><td id="SxDh" class="">Overview: live orders, revenue, active tables</td></tr><tr id="175c7d1d-b70a-416b-8aa8-0d9eacde6287" dir="ltr"><td id="aZQC" class="">Orders</td><td id="Y;;[" class=""><code>/admin/orders</code></td><td id="SxDh" class="">Full order history with filters</td></tr><tr id="f9845836-267d-40d3-9acd-dd55889049f4" dir="ltr"><td id="aZQC" class="">Menu Management</td><td id="Y;;[" class=""><code>/admin/menu</code></td><td id="SxDh" class="">Categories and items management</td></tr><tr id="d018a517-292d-4ae2-8238-30f39145aaf8" dir="ltr"><td id="aZQC" class="">Item Editor</td><td id="Y;;[" class=""><code>/admin/menu/item/:id</code></td><td id="SxDh" class="">Add/edit food item</td></tr><tr id="5716f2c1-198c-4f91-b680-25782abdfaa6" dir="ltr"><td id="aZQC" class="">Category Editor</td><td id="Y;;[" class=""><code>/admin/menu/category/:id</code></td><td id="SxDh" class="">Add/edit category</td></tr><tr id="1927f82b-039c-4adf-be4d-329202f86f40" dir="ltr"><td id="aZQC" class="">Tables</td><td id="Y;;[" class=""><code>/admin/tables</code></td><td id="SxDh" class="">Table list, QR generation</td></tr><tr id="9ee0bb80-fc84-422d-bb98-4302aac93550" dir="ltr"><td id="aZQC" class="">Staff</td><td id="Y;;[" class=""><code>/admin/staff</code></td><td id="SxDh" class="">Staff accounts management</td></tr><tr id="f219844d-5b80-47fe-8fa9-7e70cb485aa1" dir="ltr"><td id="aZQC" class="">Analytics</td><td id="Y;;[" class=""><code>/admin/analytics</code></td><td id="SxDh" class="">Revenue and order charts</td></tr><tr id="d6abfdd7-3ab2-4be4-ac2d-44e1d8ff571c" dir="ltr"><td id="aZQC" class="">Settings</td><td id="Y;;[" class=""><code>/admin/settings</code></td><td id="SxDh" class="">Restaurant profile, tax, hours</td></tr></tbody></table><hr id="09b6f6ea-3975-48ef-992f-e46ea7cbd164" dir="auto"/><h1 id="95badd7e-5def-448e-8f86-d95a9cf9bcfb" class="" dir="auto">Components</h1><h2 id="e69a9950-d432-4efe-94b4-83d8ca55f858" class="" dir="auto">Shared / Global</h2><ul id="768de599-3bfd-4ed0-bfa4-bdb6461789e7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;Navbar /&gt;</code> — top bar with logo, cart icon, table number indicator</li></ul><ul id="b9b8bef6-f2c9-4290-95d7-e0441f680da5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;BottomNav /&gt;</code> — mobile bottom navigation (Menu, Cart, Orders)</li></ul><ul id="56cd6413-ac8e-4104-b8ce-fac25cb107b4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;Button /&gt;</code> — primary, secondary, ghost, danger variants</li></ul><ul id="664a285b-2750-43cf-8dfb-f6c6deced9a5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;Badge /&gt;</code> — status badges (Pending, Preparing, Ready, Served)</li></ul><ul id="411b65aa-a134-4a10-b905-30f1ed35b225" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;Loader /&gt;</code> — skeleton loaders and spinners</li></ul><ul id="a014820c-e4dd-4dfd-8eec-9387daac174f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;Modal /&gt;</code> — generic modal wrapper</li></ul><ul id="e6ccdedf-cd8a-4963-9e4b-4602dca1859c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;Toast /&gt;</code> — success/error notification toasts</li></ul><ul id="d3fcc48e-c589-4351-a1e7-bc1237690922" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;EmptyState /&gt;</code> — zero-state illustrations</li></ul><h2 id="ed43e2cb-e61b-4638-8762-da775b13d232" class="" dir="auto">Customer Components</h2><ul id="241a81eb-b170-44c1-a0bd-56d4804315fd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;CategoryTabs /&gt;</code> — horizontal scrollable category filter</li></ul><ul id="fc9d2656-474e-40ca-9729-af3ec362e8ef" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;ItemCard /&gt;</code> — food item card (photo, name, price, add button)</li></ul><ul id="138905dc-3053-4e0d-b356-27de6e3e4537" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;ItemDetailSheet /&gt;</code> — bottom sheet for item detail + add-ons</li></ul><ul id="3d1c0413-86e7-474e-a4f7-63246c26d021" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;CartItem /&gt;</code> — editable cart row</li></ul><ul id="6f92f397-d9aa-4cff-b53d-bf33798b3def" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;CartSummary /&gt;</code> — price breakdown and totals</li></ul><ul id="211908b2-761f-4b45-8290-a7dbc6ca1d47" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;OrderStatusStepper /&gt;</code> — animated step-by-step order tracker</li></ul><h2 id="9bf10c27-9268-4a86-97f8-fae2bb60facc" class="" dir="auto">Staff / Admin Components</h2><ul id="15d38c0f-b228-4ff0-8c2c-587edc0cf2ac" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;OrderCard /&gt;</code> — live order card with table, items, status</li></ul><ul id="7b362561-0e25-465c-b38d-2db1c62a8dcf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;OrderItemRow /&gt;</code> — single item within an order</li></ul><ul id="87816f4d-a50c-46c5-90b9-2552e8daacaf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;StatusSelector /&gt;</code> — dropdown or buttons for order status update</li></ul><ul id="16a4ac70-26e1-4ae0-b531-5d938f2744e1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;TableCard /&gt;</code> — table status card (free/occupied + order count)</li></ul><ul id="bb9e68a1-eca0-4819-93e7-18a5b3154fec" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;QRCodeDisplay /&gt;</code> — renders and downloads QR for a table</li></ul><ul id="4528648f-5fc5-40a6-9893-b8be554321d5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;StatsCard /&gt;</code> — metric card (revenue, orders, avg order value)</li></ul><ul id="fa03b496-fa57-4ef7-b58e-f5ecc5ac0aa6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;DataTable /&gt;</code> — sortable, filterable table for order history</li></ul><ul id="df8b52fa-0273-4b94-ae38-07d404e68c38" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;MenuItemForm /&gt;</code> — form for adding/editing food items</li></ul><ul id="dd90a963-60c1-4778-a125-6c7c0b5e9ac0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;CategoryForm /&gt;</code> — form for adding/editing categories</li></ul><ul id="549fdb1d-ad55-45cf-8aea-0ba6ef88856e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;ImageUpload /&gt;</code> — drag-and-drop image uploader with preview</li></ul><ul id="a6495ccb-6600-422f-af3e-0eabfdca430e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>&lt;SidebarNav /&gt;</code> — admin sidebar navigation</li></ul><hr id="d233723c-41bf-49ea-9c86-d478a9ce236e" dir="auto"/><h1 id="5211d06a-87cc-4011-b83c-a094fc7a3e4c" class="" dir="auto">Dashboard Modules</h1><h2 id="5208f4a7-ad3f-46c2-a42d-2f06b93fea85" class="" dir="auto">Admin Dashboard (<code>/admin</code>)</h2><p id="fcf40c14-e1e0-46f8-9b59-beb6e88592d4" class="" dir="auto"><strong>1. Live Overview Strip</strong></p><p id="dc301901-3c95-4346-919e-2cdff99fca53" class="" dir="auto">Real-time counters: Active Orders | Tables Occupied | Today&#x27;s Revenue | Orders Today</p><p id="c6ff0593-fcc4-43b4-aaf6-6bba97317a8a" class="" dir="auto">Updates every few seconds via polling or WebSocket.</p><p id="31479f1d-3677-4b1a-bfab-309a08e3f053" class="" dir="auto"><strong>2. Active Orders Feed</strong></p><p id="71f32605-5573-485a-b846-aef44984056a" class="" dir="auto">Live scrollable list of all in-progress orders. Each card shows table number, item count, elapsed time, and current status. Color-coded: yellow = preparing, green = ready.</p><p id="4da7c18b-c88f-4019-96b1-98496e1e7764" class="" dir="auto"><strong>3. Table Map</strong></p><p id="9554896e-50ed-4d9f-ac02-31e10c0a405a" class="" dir="auto">Visual grid of all tables. Color indicates: gray = free, yellow = order placed, green = order ready to serve.</p><p id="268c5edc-f2a0-44e5-91fd-e1478a581690" class="" dir="auto"><strong>4. Today&#x27;s Top Items</strong></p><p id="dcee0149-9475-4952-bc3a-f06295a7887f" class="" dir="auto">Bar chart or ranked list of most ordered items today. Quick insight into what&#x27;s driving revenue.</p><p id="4abff536-c1b7-40f8-9548-118dc74346d2" class="" dir="auto"><strong>5. Revenue Chart</strong></p><p id="b9778705-37f0-4f40-8790-3bd4dee2c39a" class="" dir="auto">Line or bar chart showing hourly or daily revenue. Toggle between Today / This Week / This Month.</p><p id="d31a7753-aeb2-431a-a33c-47a4c76d77e7" class="" dir="auto"><strong>6. Recent Orders Log</strong></p><p id="64c41cc1-9f54-4ac3-b384-03887b59ec80" class="" dir="auto">Last 10 completed or cancelled orders with timestamp, table, and value. Links to full order history.</p><hr id="40b40ad7-ecbb-4b1a-b45b-125e9efe7d52" dir="auto"/><h1 id="346caf87-b49f-4d51-8654-f88fb8e2055c" class="" dir="auto">Design Guidelines</h1><p id="492b1843-0a20-462f-9260-2499ff49b26a" class="" dir="auto"><strong>Philosophy:</strong> Premium restaurant experience — think Zomato meets Linear. Clean, fast, opinionated.</p><p id="dcd7c254-ac8f-478b-9b18-d58d97c72d77" class="" dir="auto"><strong>Theme</strong></p><ul id="069db028-3b8f-4121-b60b-5bd31149b3cf" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Light mode and dark mode supported from day one</li></ul><ul id="e950da0b-e084-47b8-9378-bbd1bc55ab5a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Neutral base palette with a bold accent (e.g. amber or coral for food context)</li></ul><ul id="78760bb3-e10c-462d-8661-8baa65ae3318" class="bulleted-list" dir="auto"><li style="list-style-type:disc">System font stack with optional Google Font for headings</li></ul><p id="ce9f46ac-a8d1-47c5-ae6c-23273c2716d6" class="" dir="auto"><strong>Layout</strong></p><ul id="f3fc328f-897a-4ba0-bd23-eb2926fe1034" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mobile-first — all customer flows designed for 375px+ screens</li></ul><ul id="cbfa4eaa-3624-48a3-be7b-44ece683662b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Admin dashboard responsive — works on tablet and desktop</li></ul><ul id="97ed3810-00b9-4123-b667-70c05fd8a777" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Max content width: 480px for customer, 1280px for admin</li></ul><p id="170105ed-4154-416a-869a-72365d33b410" class="" dir="auto"><strong>Components</strong></p><ul id="640be5d0-eb78-43b0-8bc3-c82189403bde" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Rounded cards with subtle shadows (<code>rounded-2xl</code>, <code>shadow-sm</code>)</li></ul><ul id="00188c57-f864-4141-939e-9c21fedc1e61" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Consistent 8px spacing grid</li></ul><ul id="f7e76817-e4f1-442a-9435-434ffa8a4588" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Smooth transitions: 200ms ease for modals, 150ms for buttons</li></ul><ul id="b14a7766-6722-4036-afeb-472c08db6f95" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Micro-interactions: cart icon bounce on add, status step pulse animation</li></ul><p id="a0fa7a26-a2d9-45e3-9adc-fffc7c0f3873" class="" dir="auto"><strong>Images</strong></p><ul id="dbdcca65-9c71-4b84-8f01-1c479ad15255" class="bulleted-list" dir="auto"><li style="list-style-type:disc">All food item images 16:9 or 1:1 aspect ratio, object-cover</li></ul><ul id="c64a2a04-defb-48d6-b896-e989cd257c0e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Placeholder illustration for missing images (no broken images)</li></ul><p id="b36d271b-2065-43fd-8733-c8afd060c048" class="" dir="auto"><strong>Typography</strong></p><ul id="fd5f7a34-725d-4ef0-b73f-c48585a174c4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Heading: 24–32px bold</li></ul><ul id="c4df1a37-f94c-440a-913d-14d0fba0ba37" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Body: 14–16px regular</li></ul><ul id="5e409a37-1f89-40f2-a41b-34cc038b7030" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Caption/meta: 12px muted</li></ul><hr id="98275c31-58df-4f26-9812-91323c1e7765" dir="auto"/><h1 id="11293c45-47bb-4cb9-b1fd-83f66e4f4669" class="" dir="auto">Tech Stack</h1><h2 id="73fea83a-bf43-434b-bccc-c89bc9a3687d" class="" dir="auto">Frontend</h2><table id="f41121f1-6ec5-4881-a3d4-2ed18c1899ae" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="80b599ce-c232-4f82-be2a-c9bf3a430fad" dir="ltr"><th id="aOfi" class="simple-table-header-color simple-table-header">Layer</th><th id="Es[{" class="simple-table-header-color simple-table-header">Technology</th></tr></thead><tbody><tr id="64be420f-a733-4c8b-8fca-fc38ad730424" dir="ltr"><td id="aOfi" class="">Framework</td><td id="Es[{" class="">React 18</td></tr><tr id="a366c43a-d8d4-442f-bc81-c2f11e657874" dir="ltr"><td id="aOfi" class="">Build Tool</td><td id="Es[{" class="">Vite</td></tr><tr id="cd15b949-1076-4612-90e9-e97ff65ba2be" dir="ltr"><td id="aOfi" class="">Styling</td><td id="Es[{" class="">Tailwind CSS v3</td></tr><tr id="577d4254-6bf5-481e-97eb-774dd05daf71" dir="ltr"><td id="aOfi" class="">State Management</td><td id="Es[{" class="">Zustand (cart, auth)</td></tr><tr id="2e46eff3-681a-435c-9f59-dd00a204f4e2" dir="ltr"><td id="aOfi" class="">Data Fetching</td><td id="Es[{" class="">React Query (TanStack Query)</td></tr><tr id="c0c011f5-18fd-4515-b33f-a460dd7277cc" dir="ltr"><td id="aOfi" class="">Routing</td><td id="Es[{" class="">React Router v6</td></tr><tr id="4c26c182-0e72-4c12-b656-548e3a95b577" dir="ltr"><td id="aOfi" class="">QR Code</td><td id="Es[{" class=""><code>qrcode.react</code></td></tr><tr id="ed12508f-fa0c-480c-93e9-838a6d15e953" dir="ltr"><td id="aOfi" class="">Icons</td><td id="Es[{" class="">Lucide React</td></tr><tr id="061ff716-12e2-4870-8fb7-5bd2d9f7a955" dir="ltr"><td id="aOfi" class="">Charts</td><td id="Es[{" class="">Recharts</td></tr><tr id="2700cf72-7292-4988-b1a3-acdc3364eeb9" dir="ltr"><td id="aOfi" class="">Animations</td><td id="Es[{" class="">Framer Motion</td></tr><tr id="bc501ae6-c211-4e9a-84b9-aee0b0c1f733" dir="ltr"><td id="aOfi" class="">HTTP Client</td><td id="Es[{" class="">Axios</td></tr></tbody></table><h2 id="6faa1777-9d6c-4ade-be2f-76f39d573b50" class="" dir="auto">Backend</h2><table id="dcabcaf3-18c8-4f2a-91e5-3ccf10ce5ee7" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="7cc57c65-a27f-44d3-9790-d97b1226d988" dir="ltr"><th id="^pjR" class="simple-table-header-color simple-table-header">Layer</th><th id="\w`K" class="simple-table-header-color simple-table-header">Technology</th></tr></thead><tbody><tr id="4addaae5-7c23-495d-8543-dadf141b4582" dir="ltr"><td id="^pjR" class="">Runtime</td><td id="\w`K" class="">Node.js 20</td></tr><tr id="a1fa18f1-0a90-43d7-ac7d-fa5a9916d92a" dir="ltr"><td id="^pjR" class="">Framework</td><td id="\w`K" class="">Express.js</td></tr><tr id="bd824c26-f112-4e2f-85ce-87f2bb06582c" dir="ltr"><td id="^pjR" class="">ORM</td><td id="\w`K" class="">Prisma</td></tr><tr id="c9ee8c0a-4817-4db1-be8b-76d3e4f5f22a" dir="ltr"><td id="^pjR" class="">Database</td><td id="\w`K" class="">MySQL 8</td></tr><tr id="0676004e-47f3-4830-adde-830156a52758" dir="ltr"><td id="^pjR" class="">Auth</td><td id="\w`K" class="">JWT + bcrypt</td></tr><tr id="ab6b34f6-1955-410c-ab01-f6cf36b6d4b7" dir="ltr"><td id="^pjR" class="">File Upload</td><td id="\w`K" class="">Multer + Cloudinary</td></tr><tr id="4c1d13c4-9de8-4e43-9ae7-c9fc9fd49d1a" dir="ltr"><td id="^pjR" class="">Real-time</td><td id="\w`K" class=""><a href="http://Socket.io">Socket.io</a> (order updates)</td></tr><tr id="541ec9b8-0e19-4865-bafd-606c0fb28afb" dir="ltr"><td id="^pjR" class="">Validation</td><td id="\w`K" class="">Zod</td></tr><tr id="6df05517-814c-45b4-a2fb-1052ee9e5f3b" dir="ltr"><td id="^pjR" class="">Environment</td><td id="\w`K" class="">dotenv</td></tr></tbody></table><h2 id="ebbbbc5e-e74c-4a16-86b4-aacaff62b95c" class="" dir="auto">DevOps / Tools</h2><ul id="6f8e3d40-51f8-46b1-ad2b-59e5c06ddd04" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Version control: Git + GitHub</li></ul><ul id="e85a5182-d0fe-4af5-b2a4-224618e7f847" class="bulleted-list" dir="auto"><li style="list-style-type:disc">API testing: Postman / Thunder Client</li></ul><ul id="9f92faa7-008a-432d-831e-6c0bac3dd8d4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Database GUI: TablePlus or MySQL Workbench</li></ul><ul id="1acd7429-4ac5-4b7f-bff7-55bdf49823a8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Deployment (future): Railway or Render (backend), Vercel (frontend)</li></ul><hr id="a0f2cef4-15c2-4080-95a7-0adc8bfcdf59" dir="auto"/><h1 id="e97b0c5f-3489-474b-bce9-8c50a48c4313" class="" dir="auto">Folder Structure</h1><h2 id="5519b18a-f362-4f5a-b7be-f1448d1ba3c8" class="" dir="auto">Frontend (<code>/client</code>)</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js" integrity="sha512-m3JYEI6gx5fh9jF10FjGoMzVKcV2N6nchcDcqPCdI1L3R2WQV7br2XVNR8iTLb2daOMRl3zldbcfT40xU2ntVw==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><pre id="8beab832-3a37-479b-b91b-8e2947e1d0c2" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">client/
+├── public/
+│   └── favicon.ico
+├── src/
+│   ├── assets/          # Images, fonts, SVGs
+│   ├── components/
+│   │   ├── ui/          # Generic: Button, Modal, Badge, Toast
+│   │   ├── customer/    # ItemCard, CartItem, OrderStatusStepper
+│   │   ├── staff/       # OrderCard, StatusSelector, TableCard
+│   │   └── admin/       # StatsCard, DataTable, MenuItemForm
+│   ├── hooks/           # useCart, useAuth, useOrders
+│   ├── layouts/
+│   │   ├── CustomerLayout.jsx
+│   │   ├── StaffLayout.jsx
+│   │   └── AdminLayout.jsx
+│   ├── pages/
+│   │   ├── customer/    # Menu, ItemDetail, Cart, Checkout, OrderTracking
+│   │   ├── staff/       # StaffLogin, OrderQueue, TableOverview
+│   │   └── admin/       # Dashboard, Orders, MenuMgmt, Tables, Staff, Analytics, Settings
+│   ├── services/        # api.js, orderService.js, menuService.js
+│   ├── store/           # cartStore.js, authStore.js (Zustand)
+│   ├── utils/           # formatPrice, formatDate, constants
+│   ├── App.jsx
+│   └── main.jsx
+├── .env
+├── tailwind.config.js
+└── vite.config.js</code></pre><h2 id="379e9a0a-df3d-40c2-983c-a7e70272d236" class="" dir="auto">Backend (<code>/server</code>)</h2><pre id="ce90e19c-a13d-4daf-8787-0d8ef95767fd" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">server/
+├── prisma/
+│   ├── schema.prisma    # All entity definitions
+│   └── seed.js          # Demo data for MVP
+├── src/
+│   ├── config/          # db.js, cloudinary.js, socket.js
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   ├── menuController.js
+│   │   ├── orderController.js
+│   │   ├── tableController.js
+│   │   └── adminController.js
+│   ├── middleware/
+│   │   ├── authMiddleware.js   # JWT verification
+│   │   ├── roleMiddleware.js   # admin/staff guard
+│   │   └── errorHandler.js
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   ├── menuRoutes.js
+│   │   ├── orderRoutes.js
+│   │   ├── tableRoutes.js
+│   │   └── adminRoutes.js
+│   ├── services/        # orderService.js, qrService.js
+│   ├── utils/           # responseHelper.js, validators.js
+│   └── app.js
+├── .env
+└── server.js</code></pre><hr id="ece1ce89-ad4a-4cd3-814d-c425b84e287c" dir="auto"/><h1 id="71b55d0d-d4bb-418d-850e-c49dabe9af09" class="" dir="auto">Development Roadmap</h1><h2 id="ceb594c2-1d82-4268-8ca2-f7b2a49c71c9" class="" dir="auto">Phase 0 — Foundation (Week 1)</h2><ul id="5829671a-35e1-4c24-afe7-01cd9886450d" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Project scaffolding (Vite + Express + MySQL + Prisma)</span><div class="indented"></div></li></ul><ul id="617fad73-d670-4bdf-b16c-46ce0aa2fee5" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Database schema design and Prisma migrations</span><div class="indented"></div></li></ul><ul id="c43ebd94-cb7e-40a4-aa8d-07f95584c8dc" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Auth system: JWT login for admin and staff</span><div class="indented"></div></li></ul><ul id="fcfa4162-504c-48cd-857d-f34f64c02ae2" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Base UI setup: Tailwind config, design tokens, component primitives</span><div class="indented"></div></li></ul><ul id="23a522a9-e611-4574-b929-18a574b0e03b" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Seed data: 1 demo restaurant, 5 tables, 3 categories, 15 items</span><div class="indented"></div></li></ul><h2 id="fadf6f74-bf8c-4ec0-ac48-603bb421689e" class="" dir="auto">Phase 1 — MVP Customer Flow (Week 2)</h2><ul id="8a6b07b5-e900-469f-8f42-cef2897975df" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">QR code generation per table</span><div class="indented"></div></li></ul><ul id="0ec6cbc3-a15f-49d1-bbb4-c76048b1f271" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Public menu page: categories, item cards, search</span><div class="indented"></div></li></ul><ul id="2eeb69bf-50d4-4ee3-bb15-74c043751e6e" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Item detail bottom sheet with add-ons</span><div class="indented"></div></li></ul><ul id="08df13eb-0588-421c-a1f7-d8dfd9eceee6" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Cart store (Zustand) with full CRUD</span><div class="indented"></div></li></ul><ul id="84b593fa-3fd4-4c00-bb76-033744acb1c2" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Checkout and order placement API</span><div class="indented"></div></li></ul><ul id="d3573340-9f04-4066-991d-a1c720b05ec9" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Order confirmation screen</span><div class="indented"></div></li></ul><ul id="139de7ba-04a7-429a-9379-fbc81c0830c7" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Real-time order status tracking (polling or <a href="http://Socket.io">Socket.io</a>)</span><div class="indented"></div></li></ul><h2 id="dc9445e9-4401-45ca-a134-00af788217ca" class="" dir="auto">Phase 2 — Staff Dashboard (Week 3)</h2><ul id="47232c1e-939e-4c6e-aaf6-3c0edb01bfdd" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Staff login and protected routes</span><div class="indented"></div></li></ul><ul id="76e85719-e285-4b78-9838-d7ddffc8c49b" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Live order queue with <a href="http://Socket.io">Socket.io</a> real-time updates</span><div class="indented"></div></li></ul><ul id="3b734cfc-5579-4ea5-a1c4-772034102f5d" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Order status controls (Preparing → Ready → Served)</span><div class="indented"></div></li></ul><ul id="893239c8-d9d0-48f0-9bbf-72ab833e1082" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Table overview grid</span><div class="indented"></div></li></ul><ul id="3c963515-68cd-42f1-a03b-040a8473d322" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Mobile-optimized staff UI</span><div class="indented"></div></li></ul><h2 id="e87a52e9-d993-47de-85a7-804aed70c46d" class="" dir="auto">Phase 3 — Admin Dashboard (Week 4)</h2><ul id="585d3335-26b3-43bd-9d00-ff4557836178" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Admin login and role-based access</span><div class="indented"></div></li></ul><ul id="29b5f2a3-dfca-4df5-a627-793b6b07ed84" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Menu management: categories + items CRUD with image upload</span><div class="indented"></div></li></ul><ul id="d11e4646-ca7c-4811-9e61-2dd75bcd37b3" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Table management + QR code generation/download</span><div class="indented"></div></li></ul><ul id="14b0f283-4642-4399-a43f-b1a71846ec30" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Staff account management</span><div class="indented"></div></li></ul><ul id="65c6389d-5cff-4e84-abed-c0596192f28a" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Live orders dashboard module</span><div class="indented"></div></li></ul><ul id="beacdfba-ee30-4450-8906-b3f045540f9b" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Order history with date/status filters</span><div class="indented"></div></li></ul><ul id="9f6890fe-b602-43a3-a30a-872a75e22fd5" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Basic analytics (today&#x27;s revenue, top items)</span><div class="indented"></div></li></ul><h2 id="945e5431-58dc-4c33-a6d4-71d02c29ac92" class="" dir="auto">Phase 4 — Polish + Demo Prep (Week 5)</h2><ul id="bdbbbf8a-732c-4138-8375-a971d3c4b1c4" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Dark mode implementation</span><div class="indented"></div></li></ul><ul id="298decef-9474-4605-adc8-2e829eec54c2" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Animations and micro-interactions (Framer Motion)</span><div class="indented"></div></li></ul><ul id="b0a2f30f-edb9-4a1b-989c-c38b85ba16c3" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Loading skeletons and empty states</span><div class="indented"></div></li></ul><ul id="0773b746-94ad-46ce-a4a2-df18aaaac4b1" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Error handling and toast notifications</span><div class="indented"></div></li></ul><ul id="1ce1d997-926a-4328-b1d4-817e0e941ac4" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Mobile responsiveness audit</span><div class="indented"></div></li></ul><ul id="309972cf-bc88-4739-a608-06896122b688" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Demo restaurant seed data (realistic menu, photos)</span><div class="indented"></div></li></ul><ul id="86151ded-f96c-4ea9-a3fb-c8a961f929a0" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Deployment to staging environment</span><div class="indented"></div></li></ul><h2 id="55b53b36-c560-4811-aff8-3fa5f8b9fb6b" class="" dir="auto">Phase 5 — Post-MVP (Month 2+)</h2><ul id="02ea5676-ab64-49f4-b90a-669fca1e5504" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Online payment (Stripe)</span><div class="indented"></div></li></ul><ul id="1b109347-c4ab-4990-875e-e0b582d3cc26" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Waiter call button</span><div class="indented"></div></li></ul><ul id="79c1aff6-146c-455a-8567-760fac4b96dd" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Customer reviews</span><div class="indented"></div></li></ul><ul id="fbf856ea-07fe-419b-b695-1d47a4ffdee8" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Kitchen Display System</span><div class="indented"></div></li></ul><ul id="23fb5345-d91b-4ecb-8e78-eb13183ea0eb" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Advanced analytics</span><div class="indented"></div></li></ul><ul id="d5dabd11-031c-4b26-8f4a-d1596703603b" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Multi-branch support</span><div class="indented"></div></li></ul><ul id="9c162ce3-a099-492c-a321-16e0ccf1982b" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Inventory management</span><div class="indented"></div></li></ul><ul id="3c5c649d-ae83-438d-8a6e-1b095f279bad" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Native mobile apps</span><div class="indented"></div></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
